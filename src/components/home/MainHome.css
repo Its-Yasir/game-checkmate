@@ -1,0 +1,24 @@
+span{
+  font-size: 3rem;
+}
+.custom-class{
+  font-size: 3rem;
+  font-weight: 600;
+  margin-top: 20px;
+  margin: 0;
+  margin-top:-5px;
+}
+.left{
+  width: 50%;
+}
+.main-home h3{
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.main-home{
+  width: 95%;
+  margin-top: 90px;
+  display: flex;
+}

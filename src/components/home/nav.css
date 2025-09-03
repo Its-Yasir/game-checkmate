@@ -1,0 +1,71 @@
+nav {
+  display: flex;
+  height: max-content;
+  width: 70%;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 10px 20px;
+  align-items: center;
+  background-color: #007bff10;
+  /* White with 20% opacity */
+  backdrop-filter: blur(10px);
+  /* Adjust blur strength as needed */
+  -webkit-backdrop-filter: blur(10px);
+  /* For Safari compatibility */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav .logo {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  width: max-content;
+  align-items: center;
+  column-gap: 10px;
+}
+h3{
+  font-weight: 600;
+}
+
+nav .logo img {
+  height: 100%;
+}
+
+nav button {
+  width: max-content;
+  height: max-content;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+nav button:hover {
+  background-color: #0056b3;
+  transform: translate(10px, 0px);
+}
+.icon-up-right {
+  margin-left: 5px;
+  vertical-align: middle;
+  height: 1.2em;
+  width: 1.2em;
+}
+
+@media screen and (max-width: 808px) {
+  nav {
+    width: 90%;
+  } 
+}
+@media screen and (max-width:550px) {
+  nav h3{
+    display: none;
+  }
+  nav button{
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+}
