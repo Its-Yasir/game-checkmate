@@ -1,4 +1,5 @@
 import { GoArrowUpRight } from "react-icons/go";
+import { Link } from 'react-router-dom';
 import './nav.css'
 
 function Nav() {
@@ -8,9 +9,11 @@ function Nav() {
         <img src="./logo.png" alt="logo" />
         <h3>Games Checkmate</h3>
       </div>
-      <button className="add-pc-specs">Add PC Specs
-        <GoArrowUpRight className="icon-up-right" />
-      </button>
+      <Link to={"/specs"}>
+        <button className="add-pc-specs">Add PC Specs
+          <GoArrowUpRight className="icon-up-right" />
+        </button>
+      </Link>
     </nav>
   );
 }

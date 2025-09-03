@@ -1,24 +1,115 @@
-span{
+span {
   font-size: 3rem;
 }
-.custom-class{
+
+.custom-class {
   font-size: 3rem;
   font-weight: 600;
   margin-top: 20px;
   margin: 0;
-  margin-top:-5px;
+  margin-top: -5px;
 }
-.left{
+
+.left {
   width: 50%;
 }
-.main-home h3{
+
+.main-home h3 {
+  width: 60%;
   font-weight: 500;
   font-size: 1.5rem;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
-.main-home{
+
+.main-home {
   width: 95%;
   margin-top: 90px;
   display: flex;
+  height: max-content;
+  align-items: center;
+}
+
+.get-started {
+  width: max-content;
+  height: max-content;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-size: 1.2rem;
+}
+
+.add-pc-specs {
+  font-size: 1.2rem;
+  transition: all 0.3s ease-in-out;
+  width: max-content;
+  height: max-content;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-left: 20px;
+}
+.add-pc-specs:hover {
+  background-color: #0056b3;
+  transform: translate(10px, 0px);
+}
+.right{
+  width: 50%;
+  height: max-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.get-started:hover {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transform: translate(10px, 0px);
+}
+
+@media screen and (max-width:900px) {
+  span{
+    font-size: 2.5rem;
+  }
+  .text-content{
+    font-size: 2.5rem;
+  }
+  .main-home h3{
+    font-size: 1.2rem;
+    width: 80%  ;
+  }
+  .add-pc-specs{
+    font-size: 1.1rem;
+  }
+  .get-started{
+    font-size: 1.1rem;
+  }
+}
+@media screen and (max-width:700px) {
+  .main-home{
+    flex-direction: column-reverse;
+    margin-top: 50px;
+    row-gap: 40px;
+  }
+  .left, .right{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    row-gap: 10px;
+  }
+  .add-pc-specs{
+    margin: 0;
+  }
 }
