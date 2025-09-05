@@ -1,19 +1,149 @@
 .specs-container {
-  padding: 20px;
+  padding: 20px 40px;
   border-radius: 8px;
-  width: 60%;
+  width: max-content;
   justify-self: center;
   margin-top: 30px;
   background-color: #0a0a0a;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .specs-container h1 {
   font-size: 24px;
   margin-bottom: 12px;
+  display: flex;  
+  column-gap: 10px;
+  height: max-content;
+  align-items: center;
 }
 
 .specs-container p {
   font-size: 16px;
   color: #666;
+}
+.CPU, .GPU, .RAM, .Storage {
+  margin-top: 20px;
+  position: relative;
+}
+.CPU input, .GPU input, .RAM input, .Storage input {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  color: black;
+  flex-grow: 1;
+}
+.RAM input{
+  width: 190px;
+}
+select{
+  border-radius: 4px;
+  padding: 9px;
+  box-sizing: border-box;
+  background-color: #191919;
+  height: 100%;
+}
+option{
+  background-color: #191919;
+  color: white;
+  padding: 10px;
+}
+.cpu-inputs, .gpu-inputs, .ram-inputs, .storage-inputs {
+  margin-top: 10px;
+  width: 350px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  justify-content: space-between;
+  height: max-content;
+}
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  column-gap: 15px;
+}
+.buttons button{
+  background-color: black;
+  border-width: 0;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border-radius: 7px;
+  display: flex;
+  height: max-content;
+  align-items: center;
+  column-gap: 10px;
+  transition: all 0.2s ease;
+}
+a{
+  text-decoration: none;
+}
+.icon{
+  stroke: #2563eb;
+}
+.buttons .add-specs{
+  background-color: #2563eb;
+  color: white;
+  border: 2px solid #2563eb;
+}
+.buttons .go-back{
+  border: 2px solid #2563eb;
+  color: #2563eb;
+}
+.buttons .add-specs:hover{
+  transform: translateX(10px);
+  cursor: pointer;
+  filter: brightness(0.9);
+}
+.buttons .go-back:hover{
+  transform: translateX(-10px);
+  cursor: pointer;
+  filter: brightness(0.9);
+}
+.optionsSearched{
+  position: absolute;
+  top: 100%;
+  background-color: rgb(26, 26, 26);
+  z-index: 1;
+  width: 100%;
+  padding: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+  border-radius: 7px;
+  scrollbar-width: thin;
+  display: none;
+}
+.optionsSearched div{
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px;
+}
+.optionsSearched div:hover{
+  background-color: #333;
+  color: white;
+  transition: all 0.2s ease;  
+}
+.cpu-inputs input:focus + .cpuoptionsSearched,
+.gpu-inputs input:focus + .gpuoptionsSearched{
+  display: block;
+}
+
+
+@media screen and (max-width: 768px) {
+  .specs-container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .specs-container h1 {
+    font-size: 20px;
+  }
+
+  .specs-container p {
+    font-size: 14px;
+  }
+  
 }
