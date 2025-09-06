@@ -3,7 +3,7 @@ import { GiCpu } from "react-icons/gi";
 import { BsGpuCard } from "react-icons/bs";
 import { IoArrowBack } from "react-icons/io5";
 import { FaArrowRight } from "react-icons/fa6";
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
 export default Specs;
 
@@ -37,17 +37,17 @@ function Specs({
   const [gpus, setGpus] = useState([]);
   const [gpuSearch, setGpuSearch] = useState("");
 
-  console.log(allSpecs);
 
-  const handleInputFocus = () => setIsListVisible(true);
-  // Use onMouseDown to prevent blur when clicking an option
-  const handleListMouseDown = (e) => e.preventDefault();
 
-  function proceedToNextPage() {
+  function NextPageBtn() {
+    const navigate = useNavigate();
+
     const ramEl = document.querySelector('.RAM h1');
     const storageEl = document.querySelector('.Storage h1');
     const cpuEl = document.querySelector('.CPU h1');
     const gpuEl = document.querySelector('.GPU h1');
+
+    let handleClick;
 
     if (ramEl && storageEl && cpuEl && gpuEl) {
       let ramString = ramEl.textContent;
@@ -56,11 +56,29 @@ function Specs({
       let gpuString = gpuEl.textContent;
 
       if (ramString.length > 4 && storageString.length > 13 && cpuString.length > 4 && gpuString.length > 4) {
-        console.log("All specifications are valid.");
+        handleClick = () => {
+          navigate('/get-started'); // Navigates to the '/other-page' route
+        };
+      }else{
+        handleClick = () => {
+          alert('Add all System Specs')
+        }
       }
     }
+
+    return (
+      <button className="add-specs"
+        onClick={handleClick}
+      >Add Specs
+        <FaArrowRight />
+      </button>
+    );
   }
-  proceedToNextPage();
+
+  const handleInputFocus = () => setIsListVisible(true);
+  // Use onMouseDown to prevent blur when clicking an option
+  const handleListMouseDown = (e) => e.preventDefault();
+
 
   useEffect(() => {
     fetch("/gpus_full.json") // put file in /public/
@@ -229,11 +247,7 @@ function Specs({
             Go Back
           </button>
         </Link>
-        <Link to={"/get-started"}>
-          <button className="add-specs">Add Specs
-            <FaArrowRight />
-          </button>
-        </Link>
+        <NextPageBtn />
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home } from './Home';
 import GeminiGenerator from './GeminiGenerator';
 import { useState, useEffect } from 'react';
+import { Main } from './components/main/Main'
 
 function App() {
 
@@ -165,7 +166,7 @@ function App() {
                 duration={400}
               >
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                  <Specs />
+                  <Main />
                 </div>
               </ClickSpark>
             </div>
