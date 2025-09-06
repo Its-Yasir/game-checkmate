@@ -5,6 +5,7 @@ import { IoArrowBack } from "react-icons/io5";
 import { FaArrowRight } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
+export default Specs;
 
 
 function Specs({
@@ -20,20 +21,46 @@ function Specs({
   setStorageOptionUnitSelected,
   setStorageOptionTypeSelected,
   storageOptionTypeSelected,
-  cpuSpecs,
   setCpuSpecs,
-  gpuSpecs,
-  setGpuSpecs
+  setGpuSpecs,
+  ramSpecs,
+  setRamSpecs,
+  storageSpecs,
+  setStorageSpecs,
+  allSpecs,
+  setAllSpecs
 }) {
+  //! ALL VARIABLES DECLARED
   const [cpus, setCpus] = useState([]);
   const [cpuSearch, setCpuSearch] = useState("");
   const [isListVisible, setIsListVisible] = useState(false);
   const [gpus, setGpus] = useState([]);
   const [gpuSearch, setGpuSearch] = useState("");
 
+  console.log(allSpecs);
+
   const handleInputFocus = () => setIsListVisible(true);
   // Use onMouseDown to prevent blur when clicking an option
   const handleListMouseDown = (e) => e.preventDefault();
+
+  function proceedToNextPage() {
+    const ramEl = document.querySelector('.RAM h1');
+    const storageEl = document.querySelector('.Storage h1');
+    const cpuEl = document.querySelector('.CPU h1');
+    const gpuEl = document.querySelector('.GPU h1');
+
+    if (ramEl && storageEl && cpuEl && gpuEl) {
+      let ramString = ramEl.textContent;
+      let storageString = storageEl.textContent;
+      let cpuString = cpuEl.textContent;
+      let gpuString = gpuEl.textContent;
+
+      if (ramString.length > 4 && storageString.length > 13 && cpuString.length > 4 && gpuString.length > 4) {
+        console.log("All specifications are valid.");
+      }
+    }
+  }
+  proceedToNextPage();
 
   useEffect(() => {
     fetch("/gpus_full.json") // put file in /public/
@@ -73,12 +100,13 @@ function Specs({
         <BsGpuCard />
       </h1>
       <div className="CPU">
-        <h1>{'CPU:' + cpuSpecs}</h1>
+        <h1>{'CPU:' + (allSpecs && allSpecs.cpu ? ` ${allSpecs.cpu}` : '')}</h1>
         <div className='cpu-inputs'>
           <input type="text" placeholder='Enter CPU Name' value={cpuSearch}
             onChange={(e) => setCpuSearch(e.target.value)}
             onFocus={handleInputFocus}
-            onBlur={() => setIsListVisible(false)}
+            onBlur={() => setIsListVisible(false)
+            }
           />
           <div className="cpuoptionsSearched optionsSearched"
             onMouseDown={handleListMouseDown}>
@@ -91,6 +119,10 @@ function Specs({
                   setCpuSpecs(cpu);
                   setCpuSearch('');
                   setIsListVisible(false);
+                  setAllSpecs(prev => ({
+                    ...prev,
+                    cpu
+                  }));
                 }}
               >
                 {cpu}
@@ -109,7 +141,7 @@ function Specs({
         </div>
       </div>
       <div className="GPU">
-        <h1>{'GPU:' + gpuSpecs}</h1>
+        <h1>{'GPU:' + (allSpecs && allSpecs.gpu ? ` ${allSpecs.gpu}` : '')}</h1>
         <div className='gpu-inputs'>
           <input type="text" placeholder='Enter GPU Name' value={gpuSearch}
             onChange={(e) => setGpuSearch(e.target.value)}
@@ -127,6 +159,7 @@ function Specs({
                   setGpuSpecs(gpu);
                   setGpuSearch('');
                   setIsListVisible(false);
+                  allSpecs.gpu = gpu;
                 }}
               >
                 {gpu}
@@ -145,30 +178,34 @@ function Specs({
         </div>
       </div>
       <div className="RAM">
-        <h1>RAM:</h1>
+        <h1>{'RAM:' + ramSpecs}</h1>
         <div className='ram-inputs'>
-          <input type="number" placeholder='Enter RAM' />
+          <input type="number" placeholder='Enter RAM'
+            onChange={(e) => setRamSpecs(`${e.target.value} ${ramOptionUnitSelected} ${ramOptionTypeSelected}`.toUpperCase())}
+          />
           <select
             value={ramOptionUnitSelected}
             onChange={(e) => setOptionRamUnitSelected(e.target.value)}
           >
-            <option value="gb" selected>GB</option>
-            <option value="mb">MB</option>
+            <option value="GB" selected>GB</option>
+            <option value="MB">MB</option>
           </select>
           <select
             value={ramOptionTypeSelected}
             onChange={(e) => setOptionRamTypeSelected(e.target.value)}
           >
-            <option value="ddr3" selected>DDR3</option>
-            <option value="ddr4">DDR4</option>
-            <option value="ddr5">DDR5</option>
+            <option value="DDR3" selected>DDR3</option>
+            <option value="DDR4">DDR4</option>
+            <option value="DDR5">DDR5</option>
           </select>
         </div>
       </div>
       <div className="Storage">
-        <h1>FREE Storage:</h1>
+        <h1>{'FREE Storage: ' + storageSpecs}</h1>
         <div className='storage-inputs'>
-          <input type="number" placeholder='Enter Free Storage' />
+          <input type="number" placeholder='Enter Free Storage'
+            onChange={(e) => setStorageSpecs(` ${e.target.value} ${storageOptionUnitSelected} ${storageOptionTypeSelected}`.toUpperCase())}
+          />
           <select
             value={storageOptionUnitSelected}
             onChange={(e) => setStorageOptionUnitSelected(e.target.value)}
@@ -201,4 +238,4 @@ function Specs({
     </div>
   );
 }
-export default Specs;
+

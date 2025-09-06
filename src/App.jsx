@@ -5,7 +5,7 @@ import Particles from './components/reactbits/Particles';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home } from './Home';
 import GeminiGenerator from './GeminiGenerator';
-import { useState} from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
 
@@ -19,6 +19,37 @@ function App() {
   const [gpuSpecs, setGpuSpecs] = useState('');
   const [ramSpecs, setRamSpecs] = useState('');
   const [storageSpecs, setStorageSpecs] = useState('');
+
+  const [allSpecs, setAllSpecs] = useState({
+    cpu: "",
+    gpu: "",
+    ram: {
+      type:'DDR3',
+      data:'GB',
+      number: 0
+    },
+    storage: {
+      type:'HDD',
+      data:'GB',
+      number: 0
+    },
+  });
+
+  // Load from localStorage once at app start
+  useEffect(() => {
+    const saved = localStorage.getItem("allSpecs");
+    if (saved) {
+      setAllSpecs(JSON.parse(saved));
+    }
+  }, []);
+
+  // Save to localStorage whenever allSpecs changes
+  useEffect(() => {
+    localStorage.setItem("allSpecs", JSON.stringify(allSpecs));
+  }, [allSpecs]);
+
+
+
 
   return (
     <Router>
@@ -101,6 +132,8 @@ function App() {
                     setRamSpecs={setRamSpecs}
                     storageSpecs={storageSpecs}
                     setStorageSpecs={setStorageSpecs}
+                    allSpecs={allSpecs}
+                    setAllSpecs={setAllSpecs}
                   />
                 </div>
               </ClickSpark>
