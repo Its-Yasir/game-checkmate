@@ -166,7 +166,11 @@ function App() {
                 duration={400}
               >
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                  <Main />
+                  <Main
+                    allSpecs={allSpecs}
+                    ramSpecs={ramSpecs}
+                    storageSpecs={storageSpecs}
+                  />
                 </div>
               </ClickSpark>
             </div>

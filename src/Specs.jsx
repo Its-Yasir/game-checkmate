@@ -37,8 +37,6 @@ function Specs({
   const [gpus, setGpus] = useState([]);
   const [gpuSearch, setGpuSearch] = useState("");
 
-
-
   function NextPageBtn() {
     const navigate = useNavigate();
 
@@ -196,7 +194,7 @@ function Specs({
         </div>
       </div>
       <div className="RAM">
-        <h1>{'RAM:' + ramSpecs}</h1>
+        <h1>{'RAM: ' + '' + ramSpecs}</h1>
         <div className='ram-inputs'>
           <input type="number" placeholder='Enter RAM'
             onChange={(e) => setRamSpecs(`${e.target.value} ${ramOptionUnitSelected} ${ramOptionTypeSelected}`.toUpperCase())}
