@@ -19,23 +19,52 @@ function Specs({
   setOptionRamTypeSelected,
   setStorageOptionUnitSelected,
   setStorageOptionTypeSelected,
-  storageOptionTypeSelected
+  storageOptionTypeSelected,
+  cpuSpecs,
+  setCpuSpecs,
+  gpuSpecs,
+  setGpuSpecs
 }) {
   const [cpus, setCpus] = useState([]);
   const [cpuSearch, setCpuSearch] = useState("");
+  const [isListVisible, setIsListVisible] = useState(false);
+  const [gpus, setGpus] = useState([]);
+  const [gpuSearch, setGpuSearch] = useState("");
+
+  const handleInputFocus = () => setIsListVisible(true);
+  // Use onMouseDown to prevent blur when clicking an option
+  const handleListMouseDown = (e) => e.preventDefault();
+
+  useEffect(() => {
+    fetch("/gpus_full.json") // put file in /public/
+      .then(res => res.json())
+      .then(data => {
+        if (gpuOptionSelected === "nvidia") {
+          setGpus(data.nvidia)
+        } else if (gpuOptionSelected === "amd") {
+          setGpus(data.amd)
+        } else if (gpuOptionSelected === "intel") {
+          setGpus(data.intel)
+        } else if (gpuOptionSelected === "asus") {
+          setGpus(data.asus)
+        }
+      });
+  }, [gpuOptionSelected]);
+
   useEffect(() => {
     fetch("/cpus_with_a10.json") // put file in /public/
       .then(res => res.json())
       .then(data => {
-        if(cpuOptionSelected==="intel"){
+        if (cpuOptionSelected === "intel") {
           setCpus(data.intel)
-        }else if(cpuOptionSelected==="amd"){
+        } else if (cpuOptionSelected === "amd") {
           setCpus(data.amd)
-        }else if(cpuOptionSelected==="apple"){
+        } else if (cpuOptionSelected === "apple") {
           setCpus(data.apple)
         }
       });
   }, [cpuOptionSelected]);
+
   return (
     <div className="specs-container">
       <h1>
@@ -44,35 +73,65 @@ function Specs({
         <BsGpuCard />
       </h1>
       <div className="CPU">
-        <h1>CPU:</h1>
+        <h1>{'CPU:' + cpuSpecs}</h1>
         <div className='cpu-inputs'>
-          <input type="text" placeholder='Enter CPU Name' value={cpuSearch} onChange={(e) => setCpuSearch(e.target.value)} />
-          <div className="cpuoptionsSearched optionsSearched">
+          <input type="text" placeholder='Enter CPU Name' value={cpuSearch}
+            onChange={(e) => setCpuSearch(e.target.value)}
+            onFocus={handleInputFocus}
+            onBlur={() => setIsListVisible(false)}
+          />
+          <div className="cpuoptionsSearched optionsSearched"
+            onMouseDown={handleListMouseDown}>
             {cpus.filter(cpu => cpu.toLowerCase().includes(cpuSearch.toLowerCase())).map((cpu, index) => (
-              <div key={index} className="optionSearched"
-              onClick={(e) => {setCpuSearch(e.target.textContent);}}
-              >{cpu}</div>
+              <div
+                key={index}
+                className="optionSearched"
+                onClick={() => {
+                  console.log(isListVisible);
+                  setCpuSpecs(cpu);
+                  setCpuSearch('');
+                  setIsListVisible(false);
+                }}
+              >
+                {cpu}
+              </div>
             ))}
           </div>
           <select
             value={cpuOptionSelected}
             onChange={(e) => setCpuOptionSelected(e.target.value)}
+            defaultValue="intel"
           >
-            <option value="intel" selected>Intel</option>
+            <option value="intel">Intel</option>
             <option value="amd">AMD</option>
             <option value="apple">Apple</option>
           </select>
         </div>
       </div>
       <div className="GPU">
-        <h1>GPU:</h1>
+        <h1>{'GPU:' + gpuSpecs}</h1>
         <div className='gpu-inputs'>
-          <input type="text" placeholder='Enter GPU Name' />
-          <div className="gpuoptionsSearched optionsSearched">
-            <div className="optionSearched">Intel i3</div>
-            <div className="optionSearched">Intel i3</div>
-            <div className="optionSearched">Intel i3</div>
-            <div className="optionSearched">Intel i3</div>
+          <input type="text" placeholder='Enter GPU Name' value={gpuSearch}
+            onChange={(e) => setGpuSearch(e.target.value)}
+            onFocus={handleInputFocus}
+            onBlur={() => setIsListVisible(false)}
+          />
+          <div className="gpuoptionsSearched optionsSearched"
+            onMouseDown={handleListMouseDown}>
+            {gpus.filter(gpu => gpu.toLowerCase().includes(gpuSearch.toLowerCase())).map((gpu, index) => (
+              <div
+                key={index}
+                className="optionSearched"
+                onClick={() => {
+                  console.log(isListVisible);
+                  setGpuSpecs(gpu);
+                  setGpuSearch('');
+                  setIsListVisible(false);
+                }}
+              >
+                {gpu}
+              </div>
+            ))}
           </div>
           <select
             value={gpuOptionSelected}

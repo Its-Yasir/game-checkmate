@@ -15,6 +15,10 @@ function App() {
   const [ramOptionTypeSelected, setOptionRamTypeSelected] = useState('ddr3');
   const [storageOptionUnitSelected, setStorageOptionUnitSelected] = useState('gb');
   const [storageOptionTypeSelected, setStorageOptionTypeSelected] = useState('hdd');
+  const [cpuSpecs, setCpuSpecs] = useState('');
+  const [gpuSpecs, setGpuSpecs] = useState('');
+  const [ramSpecs, setRamSpecs] = useState('');
+  const [storageSpecs, setStorageSpecs] = useState('');
 
   return (
     <Router>
@@ -89,6 +93,14 @@ function App() {
                     setStorageOptionUnitSelected={setStorageOptionUnitSelected}
                     storageOptionTypeSelected={storageOptionTypeSelected}
                     setStorageOptionTypeSelected={setStorageOptionTypeSelected}
+                    cpuSpecs={cpuSpecs}
+                    setCpuSpecs={setCpuSpecs}
+                    gpuSpecs={gpuSpecs}
+                    setGpuSpecs={setGpuSpecs}
+                    ramSpecs={ramSpecs}
+                    setRamSpecs={setRamSpecs}
+                    storageSpecs={storageSpecs}
+                    setStorageSpecs={setStorageSpecs}
                   />
                 </div>
               </ClickSpark>

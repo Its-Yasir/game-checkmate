@@ -117,6 +117,8 @@ a{
   display: none;
 }
 .optionsSearched div{
+  position: relative;
+  z-index: 2;
   cursor: pointer;
   border-radius: 5px;
   padding: 10px;
